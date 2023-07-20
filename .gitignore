@@ -1,0 +1,29 @@
+# NetBeans Configuraciones# 
+build/ 
+dist/ 
+**/nbproject/private/ 
+nbdist/
+nbactions.xml 
+nb-configuration.xml 
+build-impl.xml
+genfiles.properties
+project.properties
+derby.log
+*.scssc
+
+# Class Java # 
+*.class 
+
+# Package Java # 
+*.jar 
+*.war 
+*.ear
+!/lib/all-themes-1.0.10.jar
+!/lib/primefaces-5.3.jar
+!/lib/mssql-jdbc-6.4.0.jre8.jar
+!/lib/poi-3.9.jar
+!/lib/poi-3.15.jar
+!/lib/poi-ooxml-3.15.jar
+/faec-ejb/target/
+/faec-web/target/
+/faec-ear/target/
