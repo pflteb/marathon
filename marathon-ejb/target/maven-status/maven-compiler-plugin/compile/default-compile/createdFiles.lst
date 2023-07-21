@@ -1,9 +1,12 @@
-ec\com\marathon\ejb\DepartmentsEmployees.class
 ec\com\marathon\ejb\DepartmentsEmployees_.class
 ec\com\marathon\ejb\Departments_.class
+ec\com\marathon\ejb\database\DepartmentsDAO.class
 ec\com\marathon\ejb\Enterprises_.class
-ec\com\marathon\ejb\Enterprises.class
+ec\com\marathon\servicio\DepartmentsService.class
 ec\com\marathon\ejb\Departments.class
 ec\com\marathon\ejb\NewSessionBean.class
 ec\com\marathon\ejb\Employees_.class
+ec\com\marathon\ejb\DepartmentsEmployees.class
+ec\com\marathon\ejb\db.class
+ec\com\marathon\ejb\Enterprises.class
 ec\com\marathon\ejb\Employees.class
