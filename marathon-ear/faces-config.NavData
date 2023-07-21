@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="paginas/captacion/cuenta.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="paginas/captacion/cuentaCliente.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="template/timeOut.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="paginas/masivo/provisiones.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="402.html" x="150" y="450" zoom="true"/>
+        <Node id="paginas/seguridad/perfil.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="login_1.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="index.html" x="900" y="900" zoom="true"/>
+        <Node id="paginas/captacion/liquidacion.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="paginas/seguridad/catalogo.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="paginas/reporte/rptCredito.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="access.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="paginas/masivo/procesoMasivo.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="paginas/general/cambioClave.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="paginas/afiliado/infoCompleta.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="400.html" x="1150" y="300" zoom="true"/>
+        <Node id="login.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="template/navegacion.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="invoice.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="paginas/solicitud/solicitudFlujo.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="paginas/captacion/movimiento.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="paginas/credito/creditoHistorial.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="paginas/reporte/rptCuenta.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="paginas/seguridad/menu.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="landing.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="paginas/solicitud/solicitud.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="template/status.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="paginas/reporte/generaReporte.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="paginas/masivo/cashManagement.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="paginas/solicitud/solicitudFlujoAprobacion.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="notfound.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="paginas/credito/creditoAbonoCapital.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="template/mensajes.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="empty.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="paginas/solicitud/solicitudVisualizar.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="paginas/afiliado/persona.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="paginas/captacion/cuentaExterna.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="paginas/credito/creditoDetalle.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="error.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="template/cabecera.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="paginas/afiliado/cliente.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="500.html" x="150" y="300" zoom="true"/>
+        <Node id="help.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="paginas/general/home.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="paginas/credito/creditoGestion.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="template/menu.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="paginas/seguridad/usuario.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="paginas/masivo/archivo.xhtml" x="1650" y="600" zoom="true"/>
+        <Node id="401.html" x="400" y="900" zoom="true"/>
+        <Node id="paginas/reporte/estructuras.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="paginas/credito/creditoPrecancelacion.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="404.html" x="1650" y="150" zoom="true"/>
+        <Node id="paginas/solicitud/capacidadEndeudamiento.xhtml" x="650" y="1050" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

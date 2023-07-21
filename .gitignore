@@ -27,3 +27,6 @@ derby.log
 /faec-ejb/target/
 /faec-web/target/
 /faec-ear/target/
+/marathon-ejb/target/
+/marathon-web/target/
+/marathon-ear/target/

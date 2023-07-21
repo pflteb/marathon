@@ -1,0 +1,152 @@
+<ui:composition 
+    template="/WEB-INF/templateBasico.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content" >
+        <p:growl id="message" showDetail="true" globalOnly="true"/> 
+
+        <h:head>
+            <title><ui:insert name="title">FrontAccounting EC</ui:insert></title>
+            <h:outputScript name="js/layout.js" library="ecuador-layout" />
+            <h:outputScript name="js/prism.js" library="ecuador-layout"/>
+            <ui:insert name="head"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+        </h:head>
+
+        <center>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <h:form id="loginForm">
+                <p:panelGrid>
+                    <p:row>
+                        <p:column style="width: 100%; border-color: #ffffff;">
+                            <p:panel  style=" border: 2px !important">                                                                            
+                                <p:panel style="background:white !important; border-color: #A9A9A9 !important; border-width: 1px; width: 99% !important">
+                                    <div class="horizontalring">
+                                        <center>
+                                            <p:graphicImage name="images/frontaccountingec_logo.png" library="ecuador-layout" style="width: 100%; height: 30%"/>
+                                        </center>
+                                    </div>
+                                    <br/>
+                                    <center>
+                                        <p:panelGrid styleClass="sinbordes" >
+                                            <p:row>
+                                                <p:column style="border-color: #ffffff;text-align: right;">
+                                                    <h:outputText value="Usuario:"/>
+                                                </p:column>
+                                                <p:column style="border-color: #ffffff;width: 1px;">
+                                                    <h:outputText value="*" style="color:red; font-size: medium;font-weight:  bold;"/>
+                                                </p:column>
+                                                <p:column style="border-color: #ffffff;">
+                                                    <p:inputText style="border-color: #ffffff;" id="txtUsuario" value="#{accesoControlador.login}" required="true"/>
+                                                </p:column>
+                                                <p:column style="border-color: #ffffff;">
+                                                    <p:message for="txtUsuario" display="icon"/>
+                                                </p:column>
+                                            </p:row>                                    
+                                            <p:row>
+                                                <p:column style="border-color: #ffffff;text-align: right;">
+                                                    <h:outputText value="Contraseña:"/>
+                                                </p:column>
+                                                <p:column style="border-color: #ffffff;width: 1px;">
+                                                    <h:outputText value="*" style="color:red; font-size: medium;font-weight:  bold;"/>
+                                                </p:column>
+                                                <p:column style="border-color: #ffffff;">
+                                                    <p:password id="txtPassword" style="border-color: #ffffff;" value="#{accesoControlador.password}" required="true"/>
+                                                </p:column>
+                                                <p:column style="border-color: #ffffff;">
+                                                    <p:message for="txtPassword" display="icon"/>
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>  
+                                        <br/>
+                                        <p:commandButton title="Continuar" label="Continuar" 
+                                                         id="btnContinuar"
+                                                         process="loginForm"
+                                                         update="message, loginForm,frmPerfilXUsuario,@this"                                                                 
+                                                         actionListener="#{accesoControlador.ingreso()}"
+                                                         value="Continuar" style="width: 150px;"
+                                                         onclick="cryptoJS()">
+
+                                        </p:commandButton>
+
+                                        <script >
+                                            function cryptoJS() {
+                                                document.getElementById('loginForm:txtPassword').value = CryptoJS.AES.encrypt(document.getElementById('loginForm:txtPassword').value,"#{accesoControlador.sessionId}");
+                                            }
+                                        </script>
+                                        <br/>
+                                        <br/>
+                                        <h:outputText value="Versión: #{accesoControlador.version}"/>
+                                        <br/>
+                                        <h:commandLink action="#{accesoControlador.recuperarClave()}" immediate="true">
+                                            <h:outputText value="Recuperar o Cambiar Contraseña"/>
+                                        </h:commandLink>
+                                    </center>
+                                </p:panel>
+                            </p:panel>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </h:form>
+        </center>
+        <p:dialog id="dlgPerfilXUsuarioId"
+                  widgetVar="dlgPerfilXUsuarioVar"  
+                  header="Confirmation" 
+                  modal="true" resizable="false" width="600px">
+            <h:form id="frmPerfilXUsuario">
+                <p:panel id="panPerfilXUsuario">            
+                    <p:panelGrid  columns="2" 
+                                  columnClasses="ui-grid-col-3,ui-grid-col-9" 
+                                  layout="grid" 
+                                  styleClass="ui-panelgrid-blank"
+                                  style="width: 100%;">
+                        <p:outputLabel value="Perfil de Usuarios:"/>    
+                        <p:selectOneMenu value="#{accesoControlador.idPerfil}"
+                                         required="true"
+                                         requiredMessage="Debe seleccionar el dato"
+                                         id="selPerfil">
+                            <f:selectItem itemValue="" itemLabel="Seleccione"/>
+                            <f:selectItems value="#{accesoControlador.listaPerfilesTemp}" 
+                                           var="item"
+                                           itemValue="#{item.id}" 
+                                           itemLabel="#{item.nombre}"/>   
+                        </p:selectOneMenu>  
+                    </p:panelGrid>
+                    <br/>
+                    <p:commandButton value="Continuar"  
+                                     icon="pi pi-check" 
+                                     oncomplete="PF('dlgPerfilXUsuarioVar').hide()"
+                                     actionListener ="#{accesoControlador.ingreso}"
+                                     update="message">
+                    </p:commandButton>
+                    <p:commandButton value="Cancelar" 
+                                     icon="pi pi-times-circle" 
+                                     oncomplete="PF('dlgPerfilXUsuarioVar').hide()"
+                                     actionListener="#{accesoControlador.init()}">
+                    </p:commandButton>
+                </p:panel>
+            </h:form>
+
+            <h:outputStylesheet name="css/primeicons.css" library="ecuador-layout"/>
+            <h:outputStylesheet name="css/primeflex.min.css" library="ecuador-layout"/>
+            <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ecuador-layout"/>
+
+        </p:dialog>
+
+
+        <h:outputStylesheet name="css/primeicons.css" library="ecuador-layout" />
+        <h:outputStylesheet name="css/primeflex.min.css" library="ecuador-layout" />
+
+        <h:outputStylesheet name="css/demo.css" library="demo"/>
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ecuador-layout" />
+
+    </ui:define>
+</ui:composition>
+

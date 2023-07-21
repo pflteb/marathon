@@ -4,6 +4,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">   
+    <welcome-file-list>
+        <welcome-file>login.jsf</welcome-file>
+    </welcome-file-list>
     
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -29,6 +32,15 @@
         <param-name>com.sun.faces.allowTextChildren</param-name>
         <param-value>true</param-value>
     </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>ecuador-#{guestPreferences.theme}</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/primefaces-ecuador.taglib.xml</param-value>
+    </context-param>
     
     <context-param>
         <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
@@ -40,10 +52,6 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -107,6 +115,10 @@
     <session-config>
         <session-timeout>25</session-timeout>
     </session-config>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/login.xhtml</location>
+    </error-page>
     <error-page>
         <error-code>400</error-code>
         <location>/error.html</location>

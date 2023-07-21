@@ -1,0 +1,14 @@
+/**
+ * Css para utilizar en Faec
+ *
+ * @author Enrique Vásconez
+ */
+
+#fijoDerechaSuperior {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    width: 20px;
+}

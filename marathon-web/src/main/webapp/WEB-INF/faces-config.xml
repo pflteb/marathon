@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    
+    <name>primefaces_ecuador</name>
+    
+    <component>
+        <component-type>ec.com.marathon.component.EcuadorMenu</component-type>
+        <component-class>ec.com.marathon.ecuador.component.EcuadorMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>ec.com.marathon.component</component-family>
+            <renderer-type>ec.com.marathon.component.EcuadorMenuRenderer</renderer-type>
+            <renderer-class>ec.com.marathon.ecuador.component.EcuadorMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    
+</faces-config>

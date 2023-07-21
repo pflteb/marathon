@@ -14,7 +14,6 @@
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
         <link rel="shortcut icon" type="image/x-icon" href="../../resources/img/#{empresa.nombreEmpresa}.png"/>
-        <title><ui:insert name="title">FAEC - #{empresa.nombreEmpresa}</ui:insert></title>
         <h:outputScript name="js/layout.js" library="ecuador-layout" />
         <h:outputScript name="js/prism.js" library="ecuador-layout"/>
         <ui:insert name="head"/>
@@ -30,11 +29,6 @@
                 <div class="route-bar">
                     <div class="route-bar-breadcrumb">
                         <ul>
-                            <li>
-                                <a href="/faec-web/paginas/general/home.jsf">
-                                    <i class="pi pi-home"/>
-                                </a>
-                            </li>
                             <li>/</li>
                             <ui:insert name="viewname" />
                         </ul>

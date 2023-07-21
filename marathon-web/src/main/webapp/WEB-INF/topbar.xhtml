@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="layout-topbar">
+        <a href="#" id="topbar-menu-button">
+            <i class="pi pi-angle-left arrow"/>
+            <i class="pi pi-angle-up mobile"/>
+        </a>
+        <a style="float: left; width: 65%; height: 100%; display: flex; align-items: center">
+            <p>
+                <span style="color: black; font-weight: bold; font-size: large">FRONTACCOUNTING EC</span>
+                <br/>
+                <span style="color: white; font-size: smaller">Automatizando la Gestión de Fondos</span>
+            </p>
+        </a>
+
+        <a id="topbar-profile-menu-button" href="#">
+            <span>#{accesoControlador.usuarioActualNombre}</span>
+            <p:graphicImage name="images/avatar_user.png" library="ecuador-layout" styleClass="topbar-profile" />
+            <i class="pi pi-caret-down"/>
+        </a>
+
+        <ul id="topbar-usermenu" class="fadeInDown animated">
+            <li role="menuitem">
+                <a>
+                    <i class="pi pi-fw pi-user"/>
+                    <span class="topbar-item-name"><b>#{accesoControlador.usuarioActualPerfil}</b></span>
+                </a>
+            </li>
+            <li role="menuitem">
+            </li>
+            <li role="menuitem">
+                <p:commandLink
+                    process="@this"
+                    value="Cerrar Sesión" 
+                    actionListener="#{accesoControlador.cerrarSesion()}"/>
+            </li>
+        </ul>
+    </div>
+
+</ui:composition>
