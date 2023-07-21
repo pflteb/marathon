@@ -24,9 +24,6 @@ derby.log
 !/lib/poi-3.9.jar
 !/lib/poi-3.15.jar
 !/lib/poi-ooxml-3.15.jar
-/faec-ejb/target/
-/faec-web/target/
-/faec-ear/target/
-/marathon-ejb/target/
-/marathon-web/target/
-/marathon-ear/target/
+marathon-ejb/target/
+marathon-web/target/
+marathon-ear/target/
