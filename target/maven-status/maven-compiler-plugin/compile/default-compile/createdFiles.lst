@@ -1,0 +1,13 @@
+com\ec\mthonec\entities\Department.class
+com\ec\mthonec\resources\JavaEE8Resource.class
+com\ec\mthonec\ejb\EmployeeEJB.class
+com\ec\mthonec\JAXRSConfiguration.class
+com\ec\mthonec\entities\Enterprise.class
+com\ec\mthonec\entities\Employee.class
+com\ec\mthonec\beans\DepartmentBean.class
+MyEJB.class
+com\ec\mthonec\beans\EmployeeBean.class
+com\ec\mthonec\ejb\EnterpriseEJB.class
+com\ec\mthonec\ejb\DepartmentEJB.class
+com\ec\mthonec\beans\GeneralBean.class
+com\ec\mthonec\beans\EnterpriseBean.class
