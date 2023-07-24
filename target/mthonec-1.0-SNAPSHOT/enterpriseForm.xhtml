@@ -12,97 +12,95 @@
         <p:growl id="message" globalOnly="true" showDetail="true"/>
         <!--List-->
         <h:form id="frmList" rendered="#{enterpriseBean.showList}">
-            <p:panel> 
-                <p:panelGrid columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank" >
-                    <h1>List of Enterprises</h1>
-                    <p:commandButton value="New"
-                                     icon="pi pi-plus-circle"
-                                     action="#{enterpriseBean.add()}"
-                                     update="frmList, frmNew"
-                                     style="float:right">
+            <p:panelGrid columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank" >
+                <h1>List of Enterprises</h1>
+                <p:commandButton value="New"
+                                 icon="pi pi-plus-circle"
+                                 action="#{enterpriseBean.add()}"
+                                 update="frmList, frmNew"
+                                 style="float:right">
+                </p:commandButton>
+            </p:panelGrid>
+            <p:dataTable value="#{enterpriseBean.listEnterprise}" var="enterprise">
+                <p:column headerText="ID">
+                    <h:outputText value="#{enterprise.id}" />
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{enterprise.name}" />
+                </p:column>
+                <p:column headerText="Adress">
+                    <h:outputText value="#{enterprise.address}" />
+                </p:column>
+                <p:column headerText="Phone">
+                    <h:outputText value="#{enterprise.phone}" />
+                </p:column>
+                <p:column headerText="Status">
+                    <h:outputText value="#{enterprise.statusDescription}" />
+                </p:column>
+                <p:column headerText="Actions"
+                          style="text-align: center">
+                    <p:commandButton icon="pi pi-pencil"
+                                     class="ui-button-warning rounded-button"
+                                     actionListener="#{enterpriseBean.select(enterprise)}"
+                                     title="Editar">     
+                        <p:ajax update=":frmList"/>
                     </p:commandButton>
-                </p:panelGrid>
-                <p:dataTable value="#{enterpriseBean.listEnterprise}" var="enterprise">
-                    <p:column headerText="ID">
-                        <h:outputText value="#{enterprise.id}" />
-                    </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{enterprise.name}" />
-                    </p:column>
-                    <p:column headerText="Adress">
-                        <h:outputText value="#{enterprise.address}" />
-                    </p:column>
-                    <p:column headerText="Phone">
-                        <h:outputText value="#{enterprise.phone}" />
-                    </p:column>
-                    <p:column headerText="Status">
-                        <h:outputText value="#{enterprise.statusDescription}" />
-                    </p:column>
-                    <p:column headerText="Actions"
-                              style="text-align: center">
-                        <p:commandButton icon="pi pi-pencil"
-                                         class="ui-button-warning rounded-button"
-                                         actionListener="#{enterpriseBean.select(enterprise)}"
-                                         title="Editar">     
-                            <p:ajax update=":frmList"/>
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-                <br/>
-            </p:panel>
+                </p:column>
+            </p:dataTable>
+            <br/>
         </h:form>
 
         <!--New & Update-->
         <h:form id="frmNew" rendered="#{enterpriseBean.showNew}">
-            <p:panel> 
+            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
                 <h1>Enterprise Maintenance</h1>
-                <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+            </p:panelGrid>
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
 
-                    <p:outputLabel for="lbEnterprise" value="Enterprise:"/>    
-                    <p:inputText id="lbEnterprise" 
-                                 required="true"
-                                 value="#{enterpriseBean.objEnterprise.name}">
-                    </p:inputText>
+                <p:outputLabel for="lbEnterprise" value="Enterprise:"/>    
+                <p:inputText id="lbEnterprise" 
+                             required="true"
+                             value="#{enterpriseBean.objEnterprise.name}">
+                </p:inputText>
 
-                    <p:outputLabel for="lbAddress" value="Address:"/>    
-                    <p:inputText id="lbAddress" 
-                                 required="true"
-                                 value="#{enterpriseBean.objEnterprise.address}">
-                    </p:inputText>
+                <p:outputLabel for="lbAddress" value="Address:"/>    
+                <p:inputText id="lbAddress" 
+                             required="true"
+                             value="#{enterpriseBean.objEnterprise.address}">
+                </p:inputText>
 
-                    <p:outputLabel for="lbPhone" value="Phone:"/>    
-                    <p:inputText id="lbPhone" 
-                                 required="true"
-                                 value="#{enterpriseBean.objEnterprise.phone}">
-                    </p:inputText>
+                <p:outputLabel for="lbPhone" value="Phone:"/>    
+                <p:inputText id="lbPhone" 
+                             required="true"
+                             value="#{enterpriseBean.objEnterprise.phone}">
+                </p:inputText>
 
-                    <p:outputLabel for="selStatus" value="Status:"/>    
-                    <p:selectOneMenu 
-                        value="#{enterpriseBean.objEnterprise.status}"
-                        id="selStatus"
-                        style="width: 100%;">
-                        <f:selectItem itemLabel="Select" itemValue="#{null}" />
-                        <f:selectItems value ="#{enterpriseBean.listStatus}" /> 
-                    </p:selectOneMenu>
+                <p:outputLabel for="selStatus" value="Status:"/>    
+                <p:selectOneMenu 
+                    value="#{enterpriseBean.objEnterprise.status}"
+                    id="selStatus"
+                    style="width: 100%;">
+                    <f:selectItem itemLabel="Select" itemValue="#{null}" />
+                    <f:selectItems value ="#{enterpriseBean.listStatus}" /> 
+                </p:selectOneMenu>
 
-                </p:panelGrid>
+            </p:panelGrid>
 
-                <br/>
-                <p:commandButton value="Guardar"
-                                 icon="pi pi-save"
-                                 style="margin: 2px"     
-                                 action="#{enterpriseBean.saveEnterprise()}"
-                                 update="frmList, frmNew"
-                                 process="frmNew">        
-                </p:commandButton>
-                <p:commandButton value="Cancel"
-                                 icon="pi pi-times-circle"
-                                 style="margin: 2px"   
-                                 action="#{enterpriseBean.init()}"
-                                 update=":frmList, :frmNew"
-                                 process="@this">                
-                </p:commandButton>
-            </p:panel>
+            <br/>
+            <p:commandButton value="Guardar"
+                             icon="pi pi-save"
+                             style="margin: 2px"     
+                             action="#{enterpriseBean.saveEnterprise()}"
+                             update="frmList, frmNew"
+                             process="frmNew">        
+            </p:commandButton>
+            <p:commandButton value="Cancel"
+                             icon="pi pi-times-circle"
+                             style="margin: 2px"   
+                             action="#{enterpriseBean.init()}"
+                             update=":frmList, :frmNew"
+                             process="@this">                
+            </p:commandButton>
         </h:form>    
     </ui:define>    
 </ui:composition>
