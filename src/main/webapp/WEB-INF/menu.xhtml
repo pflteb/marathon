@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Menu</title>
+    </h:head>
+    <h:form>
+        <p:growl id="messages" showDetail="true"/>
+        <div class="card">
+            <p:commandButton id="dynaButton" value="Menu" type="button" icon="pi pi-bars"/>
+            <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                <p:submenu label="Navigations">
+                    <p:menuitem value="Employees" url="http://localhost:8080/marathon/employeeForm.jsf" icon="pi pi-external-link"/>
+                    <p:menuitem value="Enterprises" url="http://localhost:8080/marathon/enterpriseForm.jsf" icon="pi pi-external-link"/>
+                    <p:menuitem value="Departments" url="http://localhost:8080/marathon/departmentForm.jsf" icon="pi pi-external-link"/>
+                </p:submenu>
+            </p:menu>
+        </div>
+    </h:form>
+</html>

@@ -3,10 +3,7 @@ package com.ec.mthonec.beans;
 import com.ec.mthonec.ejb.EnterpriseEJB;
 import com.ec.mthonec.entities.Enterprise;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import static java.time.LocalDate.now;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
@@ -27,15 +25,18 @@ public class EnterpriseBean implements Serializable {
     private EnterpriseEJB enterpriseEJB;
 
     //Objets
-    private Enterprise enterprise;
+    private Enterprise objEnterprise;
 
     //Lists
     private List<Enterprise> listEnterprise;
+    private List<SelectItem> listStatus;
 
     //Variables
     private Boolean showNew;
     private Boolean showList;
     private Boolean showUpdate;
+    private Boolean statusEnterprise;
+    private String status;
 
     @PostConstruct
     public void init() {
@@ -46,6 +47,11 @@ public class EnterpriseBean implements Serializable {
             showNew = Boolean.FALSE;
             showList = Boolean.FALSE;
             showUpdate = Boolean.FALSE;
+
+            //Initialize variables
+            listStatus = new ArrayList<SelectItem>();
+            listStatus.add(new SelectItem("true", "Active"));
+            listStatus.add(new SelectItem("false", "Inactive"));
 
             //Show Panels
             showList = Boolean.TRUE;
@@ -60,21 +66,27 @@ public class EnterpriseBean implements Serializable {
 
     }
 
+    /**
+     * Create a new record
+     *
+     */
     public void add() {
         try {
 
             //Initialize Variables
             Date date = new Date();
+            status = "CREATE";
 
             //Show/Hide Panels
             showList = Boolean.FALSE;
             showNew = Boolean.TRUE;
 
             //Create the new Object
-            enterprise = new Enterprise();
+            objEnterprise = new Enterprise();
 
             //Set properties
-            enterprise.setCreatedDate(date);
+            objEnterprise.setCreatedDate(date);
+            objEnterprise.setCreatedBy("default.user");
 
         } catch (Exception e) {
             Logger logger = Logger.getLogger(Enterprise.class.getName().getClass().toString());
@@ -82,25 +94,61 @@ public class EnterpriseBean implements Serializable {
         }
     }
 
-    public Enterprise getEnterprise() {
-        return enterprise;
+    /**
+     * Select a record
+     *
+     * @param enterprise
+     */
+    public void select(Enterprise enterprise) {
+
+        try {
+
+            //Initialize Variables
+            Date date = new Date();
+            status = "UPDATE";
+
+            //Show/Hide Panels
+            showList = Boolean.FALSE;
+            showNew = Boolean.TRUE;
+
+            objEnterprise = enterpriseEJB.getEnterpriseById(enterprise.getId());
+
+            objEnterprise.setModifiedDate(date);
+            objEnterprise.setModifiedBy("default.user");
+
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(Enterprise.class.getName().getClass().toString());
+            System.out.println(logger);
+        }
     }
 
-    public void setEnterprise(Enterprise enterprise) {
-        this.enterprise = enterprise;
-    }
-
+    /**
+     * Save/Update a record
+     *
+     */
     public void saveEnterprise() {
-        enterpriseEJB.createEnterprise(enterprise);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "New Enterprise Added"));
-        init();
-        //PrimeFaces.current().executeScript("PF('dlg').hide();"); // Hide the dialog after saving
-        // You can add a success message here using PrimeFaces' RequestContext
-        // For example, RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Enterprise saved successfully."));
+        try {
+
+            switch (status) {
+                case "CREATE":
+                    enterpriseEJB.createEnterprise(objEnterprise);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "New Employee Added"));
+                    init();
+                    break;
+                case "UPDATE":
+                    enterpriseEJB.updateEnterprise(objEnterprise);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Employee Updated"));
+                    init();
+                    break;
+            }
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(Enterprise.class.getName().getClass().toString());
+            System.out.println(logger);
+        }
     }
 
     public void updateEnterprise() {
-        enterpriseEJB.updateEnterprise(enterprise);
+        enterpriseEJB.updateEnterprise(objEnterprise);
         PrimeFaces.current().executeScript("PF('dlg').hide();"); // Hide the dialog after updating
         // You can add a success message here using PrimeFaces' RequestContext
     }
@@ -111,14 +159,22 @@ public class EnterpriseBean implements Serializable {
     }
 
     public void newEnterprise() {
-        enterprise = new Enterprise(); // Clear the object before adding a new enterprise
+        objEnterprise = new Enterprise(); // Clear the object before adding a new enterprise
     }
 
     public void editEnterprise(Enterprise enterprise) {
-        this.enterprise = enterprise; // Set the selected enterprise to edit
+        this.objEnterprise = enterprise; // Set the selected enterprise to edit
+    }
+
+    public Enterprise getObjEnterprise() {
+        return objEnterprise;
     }
 
     //Get's & Set's
+    public void setObjEnterprise(Enterprise objEnterprise) {
+        this.objEnterprise = objEnterprise;
+    }
+
     public List<Enterprise> getListEnterprise() {
         return listEnterprise;
     }
@@ -149,6 +205,22 @@ public class EnterpriseBean implements Serializable {
 
     public void setShowUpdate(Boolean showUpdate) {
         this.showUpdate = showUpdate;
+    }
+
+    public List<SelectItem> getListStatus() {
+        return listStatus;
+    }
+
+    public void setListStatus(List<SelectItem> listStatus) {
+        this.listStatus = listStatus;
+    }
+
+    public Boolean getStatusEnterprise() {
+        return statusEnterprise;
+    }
+
+    public void setStatusEnterprise(Boolean statusEnterprise) {
+        this.statusEnterprise = statusEnterprise;
     }
 
 }

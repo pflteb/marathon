@@ -1,6 +1,7 @@
 package com.ec.mthonec.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class Enterprise implements Serializable {
     private String address;
     private String name;
     private String phone;
+    private transient String statusDescription;
 
     // Getters and setters
     public Long getId() {
@@ -95,5 +97,13 @@ public class Enterprise implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getStatusDescription() throws ParseException {
+        if (status == Boolean.TRUE) {
+            return "Active";
+        } else {
+            return "Inactive";
+        }
     }
 }

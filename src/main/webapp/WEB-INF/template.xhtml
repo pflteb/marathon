@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:body>
+        <div>
+            <div >
+                <ui:include src="./menu.xhtml"/>
+            </div>
+
+            <div class="layout-main">
+                <div class="layout-content">
+                    <ui:insert name="content"/>
+                </div>
+            </div>
+
+        </div>
+
+        <h:outputStylesheet name="css/demo.css" library="demo"/>
+    </h:body>
+</html>

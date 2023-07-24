@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ec.mthonec.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
-import org.primefaces.util.LangUtils;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
 
 /**
  *
@@ -22,28 +21,110 @@ import org.primefaces.util.LangUtils;
 @Named
 public class GeneralBean implements Serializable {
 
-    private TreeNode root;
+    private static final long serialVersionUID = 1L;
+
+    private MenuModel model;
 
     @PostConstruct
     public void init() {
-        root = new DefaultTreeNode("Files", null);
-        TreeNode node0 = new DefaultTreeNode("Employee", root);
-        TreeNode node1 = new DefaultTreeNode("Department", root);
-        TreeNode node2 = new DefaultTreeNode("Enterprise", root);
 
-        TreeNode node00 = new DefaultTreeNode("Add Employee", node0);
-        TreeNode node01 = new DefaultTreeNode("List Employees", node0);
+        //First submenu
+        DefaultSubMenu firstSubmenu = DefaultSubMenu.builder()
+                .label("Options")
+                .expanded(true)
+                .build();
 
-        TreeNode node10 = new DefaultTreeNode("Add Department", node1);
-        TreeNode node11 = new DefaultTreeNode("List Departmen", node1);
+        DefaultMenuItem item = DefaultMenuItem.builder()
+                .value("Save (Non-Ajax)")
+                .icon("pi pi-save")
+                .ajax(false)
+                .command("#{menuView.save}")
+                .update("messages")
+                .build();
+        firstSubmenu.getElements().add(item);
 
-        TreeNode node20 = new DefaultTreeNode("Add Enterprise", node2);
-        TreeNode node21 = new DefaultTreeNode("List Enterprise", node2);
+        item = DefaultMenuItem.builder()
+                .value("Update")
+                .icon("pi pi-refresh")
+                .command("#{menuView.update}")
+                .update("messages")
+                .build();
+        firstSubmenu.getElements().add(item);
+
+        item = DefaultMenuItem.builder()
+                .value("Delete")
+                .icon("pi pi-times")
+                .command("#{menuView.delete}")
+                .update("messages")
+                .build();
+        firstSubmenu.getElements().add(item);
+
+        model.getElements().add(firstSubmenu);
+
+        //Second submenu
+        DefaultSubMenu secondSubmenu = DefaultSubMenu.builder()
+                .label("Navigations")
+                .expanded(false)
+                .build();
+
+        item = DefaultMenuItem.builder()
+                .value("Website")
+                .url("http://www.primefaces.org")
+                .icon("pi pi-external-link")
+                .build();
+        secondSubmenu.getElements().add(item);
+
+        item = DefaultMenuItem.builder()
+                .value("Internal")
+                .icon("pi pi-upload")
+                .command("#{menuView.redirect}")
+                .build();
+        secondSubmenu.getElements().add(item);
+
+        model.getElements().add(secondSubmenu);
 
     }
 
-    public TreeNode getRoot() {
-        return root;
+    public MenuModel getModel() {
+        return model;
+    }
+
+    public void redirect() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath());
+    }
+
+    public void save() {
+        addMessage("Save", "Data saved");
+    }
+
+    public void update() {
+        addMessage("Update", "Data updated");
+    }
+
+    public void delete() {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Delete", "Data deleted");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void sleepAndSave() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(1);
+        save();
+    }
+
+    public void sleepAndUpdate() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(1);
+        update();
+    }
+
+    public void sleepAndDelete() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(1);
+        delete();
+    }
+
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

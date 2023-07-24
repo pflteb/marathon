@@ -1,19 +1,116 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="/WEB-INF/template.xhtml">
     <h:head>
-        <title>Department Form</title>
+        <title>List of Departments</title>
     </h:head>
-    <h:body>
-        <h:form id="formEdit">
-            <h:panelGrid columns="2">
-                <h:outputLabel for="name" value="Name:" />
-                <p:inputText id="name" value="#{departmentBean.department.name}" />
-                <!-- Add more fields for other properties -->
-            </h:panelGrid>
-            <p:commandButton value="Save" action="#{departmentBean.saveDepartment}" update=":formTable" />
+
+    <ui:define name="content">
+
+        <p:growl id="message" globalOnly="true" showDetail="true"/>
+
+        <!--List-->
+        <h:form id="frmList" rendered="#{departmentBean.showList}">
+            <p:panel> 
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank" >
+                    <h1>List of Departments</h1>
+                    <p:commandButton value="New"
+                                     icon="pi pi-plus-circle"
+                                     actionListener="#{departmentBean.add()}"
+                                     update=":frmList, :frmNew"
+                                     ajax="true"
+                                     style="float:right">
+                    </p:commandButton>
+                </p:panelGrid>
+                <p:dataTable value="#{departmentBean.listDepartments}" var="department">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{department.id}" />
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{department.name}" />
+                    </p:column>
+                    <p:column headerText="Phone">
+                        <h:outputText value="#{department.phone}" />
+                    </p:column>
+                    <p:column headerText="Enterprise">
+                        <h:outputText value="#{department.enterprise.name}" />
+                    </p:column>
+                    <p:column headerText="Status">
+                        <h:outputText value="#{department.statusDescription}" />
+                    </p:column>
+                    <p:column headerText="Actions"
+                              style="text-align: center">
+                        <p:commandButton icon="pi pi-pencil"
+                                         class="ui-button-warning rounded-button"
+                                         actionListener="#{departmentBean.select(department)}"
+                                         title="Update">     
+                            <p:ajax update=":frmList"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <br/>
+            </p:panel>
         </h:form>
-    </h:body>
-</html>
+
+        <!--New & Update-->
+        <h:form id="frmNew" rendered="#{departmentBean.showNew}">
+            <p:panel> 
+                <h1>New Employee</h1>
+                <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+
+                    <p:outputLabel for="lbName" value="Name:"/>    
+                    <p:inputText id="lbName" 
+                                 required="true"
+                                 value="#{departmentBean.objDepartment.name}">
+                    </p:inputText>
+
+                    <p:outputLabel for="lbPhone" value="Phone:"/>    
+                    <p:inputText id="lbPhone" 
+                                 required="true"
+                                 value="#{departmentBean.objDepartment.phone}">
+                    </p:inputText>
+
+                    <p:outputLabel for="selEnterprise" value="Enterprise:"/>
+                    <p:selectOneMenu 
+                        value="#{departmentBean.objDepartment.enterprise}"
+                        id="selEnterprise"
+                        style="width: 100%;">
+                        <f:selectItems value="#{departmentBean.listEnterprise}" 
+                                       var="item"
+                                       itemValue="#{item.id}" itemLabel="#{item.name}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="selStatus" value="Status:"/>    
+                    <p:selectOneMenu 
+                        value="#{departmentBean.objDepartment.status}"
+                        id="selStatus"
+                        style="width: 100%;">
+                        <f:selectItem itemLabel="Select" itemValue="#{null}" />
+                        <f:selectItems value ="#{departmentBean.listStatus}" /> 
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+
+                <br/>
+                <p:commandButton value="Guardar"
+                                 icon="pi pi-save"
+                                 style="margin: 2px"     
+                                 actionListener="#{departmentBean.saveDepartment()}"
+                                 update=":frmList, :frmNew, :message"
+                                 process="frmNew">        
+                </p:commandButton>
+                <p:commandButton value="Cancel"
+                                 icon="pi pi-times-circle"
+                                 style="margin: 2px"   
+                                 actionListener="#{departmentBean.init()}"
+                                 update=":frmList, :frmNew"
+                                 process="@this">                
+                </p:commandButton>
+            </p:panel>
+        </h:form>   
+    </ui:define>    
+</ui:composition>

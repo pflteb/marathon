@@ -1,6 +1,7 @@
 package com.ec.mthonec.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class Department implements Serializable {
     private String description;
     private String name;
     private String phone;
+    private transient String statusDescription;
 
     @ManyToOne
     @JoinColumn(name = "id_enterprise")
@@ -109,5 +111,13 @@ public class Department implements Serializable {
 
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
+    }
+
+    public String getStatusDescription() throws ParseException {
+        if (status == Boolean.TRUE) {
+            return "Active";
+        } else {
+            return "Inactive";
+        }
     }
 }

@@ -5,10 +5,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import javax.persistence.Query;
 
 @Stateless
 public class DepartmentEJB {
-    
+
     @PersistenceContext
     private EntityManager em;
 
@@ -30,6 +31,11 @@ public class DepartmentEJB {
 
     public List<Department> getAllDepartments() {
         return em.createQuery("SELECT d FROM Department d", Department.class).getResultList();
+    }
+
+    public List<Department> getAllDepartmentsJoinEnterprise() {
+        String jpaQl = "SELECT * FROM department d JOIN enterprise e ON d.id_enterprise = e.id";
+        return em.createNativeQuery(jpaQl, Department.class).getResultList();
     }
 
     // Add additional methods as needed for the CRUD operations

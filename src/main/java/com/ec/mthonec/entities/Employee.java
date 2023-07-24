@@ -1,6 +1,7 @@
 package com.ec.mthonec.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class Employee implements Serializable {
     private String name;
     private String position;
     private String surname;
+    private transient String statusDescription;
 
     // Getters and setters
     public Long getId() {
@@ -113,5 +115,13 @@ public class Employee implements Serializable {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getStatusDescription() throws ParseException {
+        if (status == Boolean.TRUE) {
+            return "Active";
+        } else {
+            return "Inactive";
+        }
     }
 }
