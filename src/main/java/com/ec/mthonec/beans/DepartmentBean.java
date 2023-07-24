@@ -40,6 +40,7 @@ public class DepartmentBean implements Serializable {
     private Boolean showUpdate;
     private Boolean statusEmployee;
     private String status;
+    private Long idEnterprise;
 
     @PostConstruct
     public void init() {
@@ -60,7 +61,7 @@ public class DepartmentBean implements Serializable {
             listStatus.add(new SelectItem("false", "Inactive"));
 
             //Get the department list
-            listDepartments = departmentEJB.getAllDepartmentsJoinEnterprise();
+            listDepartments = departmentEJB.getAllDepartments();
 
             //Get the enterpriselist
             listEnterprise = enterpriseEJB.getAllEnterprises();
@@ -137,11 +138,13 @@ public class DepartmentBean implements Serializable {
 
             switch (status) {
                 case "CREATE":
+                    objDepartment.setEnterprise(enterpriseEJB.getEnterpriseById(idEnterprise));
                     departmentEJB.createDepartment(objDepartment);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "New Employee Added"));
                     init();
                     break;
                 case "UPDATE":
+                    objDepartment.setEnterprise(enterpriseEJB.getEnterpriseById(idEnterprise));
                     departmentEJB.updateDepartment(objDepartment);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Employee Updated"));
                     init();
@@ -237,4 +240,11 @@ public class DepartmentBean implements Serializable {
         this.listEnterprise = listEnterprise;
     }
 
+    public Long getIdEnterprise() {
+        return idEnterprise;
+    }
+
+    public void setIdEnterprise(Long idEnterprise) {
+        this.idEnterprise = idEnterprise;
+    }
 }

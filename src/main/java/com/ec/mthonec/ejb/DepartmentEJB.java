@@ -34,7 +34,7 @@ public class DepartmentEJB {
     }
 
     public List<Department> getAllDepartmentsJoinEnterprise() {
-        String jpaQl = "SELECT * FROM department d JOIN enterprise e ON d.id_enterprise = e.id";
+        String jpaQl = "SELECT d.`name`, d.phone, d.`status`, d.description, e.`name` FROM departments d JOIN enterprises e ON d.id_enterprise = e.id";
         return em.createNativeQuery(jpaQl, Department.class).getResultList();
     }
 
